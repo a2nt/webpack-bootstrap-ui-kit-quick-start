@@ -26,8 +26,7 @@
   },
   "dependencies": {
     "@a2nt/meta-lightbox": "^1.2.2",
-    "@a2nt/ss-bootstrap-ui-webpack-boilerplate": "^1.1.6",
-    "yarn": "^1.19.2",
+    "@a2nt/ss-bootstrap-ui-webpack-boilerplate": "^1.1.7",
     "@google/markerclusterer": "^1.0.3",
     "animate.css": "^3.7.0",
     "bootbox": "^4.4.0",
@@ -58,7 +57,8 @@
     "react-bootstrap4-form-validation": "^1.0.10",
     "routie": "0.0.1",
     "select2": "^4.0.12",
-    "smooth-scroll": "^14.2.1"
+    "smooth-scroll": "^14.2.1",
+    "yarn": "^1.19.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
