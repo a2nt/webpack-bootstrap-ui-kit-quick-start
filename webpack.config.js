@@ -34,18 +34,29 @@ const plugins = [
 ];
 
 if (COMPRESS) {
-  plugins.push(new OptimizeCssAssetsPlugin({
-    //assetNameRegExp: /\.optimize\.css$/g,
-    cssProcessor: require('cssnano'),
-    cssProcessorPluginOptions: {
-      preset: ['default', {
+  plugins.push(
+    new OptimizeCssAssetsPlugin({
+      //assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['default'],
+      },
+      cssProcessorOptions: {
+        zindex: true,
+        cssDeclarationSorter: true,
+        reduceIdents: false,
+        mergeIdents: true,
+        mergeRules: true,
+        mergeLonghand: true,
+        discardUnused: true,
+        discardOverridden: true,
+        discardDuplicates: true,
         discardComments: {
           removeAll: true
-        }
-      }],
-    },
-    canPrint: true
-  }));
+        },
+      },
+      canPrint: true
+    }));
 }
 
 const includes = {};
