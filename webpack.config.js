@@ -1,12 +1,10 @@
 const SOURCEDIR = './src';
-const COMPRESS = false;
+const COMPRESS = true;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 const filesystem = require('fs');
-
-const autoprefixer = require('autoprefixer');
 
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -15,6 +13,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack');
 const ImageSpritePlugin = require('@a2nt/image-sprite-webpack-plugin');
+
+const UIInfo = require('./package.json');
+const UIMetaInfo = require('./node_modules/@a2nt/meta-lightbox/package.json');
 
 const plugins = [
 	new webpack.DefinePlugin({
@@ -34,6 +35,13 @@ const plugins = [
 	/**/
 	new HtmlWebpackPlugin({
 		template: './src/index.html',
+	}),
+	new webpack.DefinePlugin({
+		UINAME: JSON.stringify(UIInfo.name),
+		UIVERSION: JSON.stringify(UIInfo.version),
+		UIAUTHOR: JSON.stringify(UIInfo.author),
+		UIMetaNAME: JSON.stringify(UIMetaInfo.name),
+		UIMetaVersion: JSON.stringify(UIMetaInfo.version),
 	}),
 ];
 
@@ -62,6 +70,7 @@ if (COMPRESS) {
 			canPrint: true,
 		}),
 	);
+	plugins.push(require('autoprefixer'));
 
 	plugins.push(
 		new ImageminPlugin({
@@ -165,11 +174,6 @@ const _addAppFiles = (theme) => {
 };
 
 _addAppFiles(SOURCEDIR);
-
-// remove unnecessary elements for the demo
-delete includes['app_cms'];
-delete includes['app_editor'];
-delete includes['app_order'];
 
 module.exports = {
 	entry: includes,
@@ -279,7 +283,6 @@ module.exports = {
 						loader: 'postcss-loader',
 						options: {
 							sourceMap: !COMPRESS,
-							plugins: [autoprefixer()],
 						},
 					},
 					{

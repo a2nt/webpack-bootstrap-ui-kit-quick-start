@@ -10,8 +10,8 @@ import 'bootstrap/js/dist/button';
 import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/collapse';
 
-import 'hammerjs/hammer';
-import 'jquery-hammerjs/jquery.hammer';
+//import 'hammerjs/hammer';
+//import 'jquery-hammerjs/jquery.hammer';
 
 // Routie
 //import 'pouchdb/dist/pouchdb';
@@ -19,6 +19,8 @@ import 'jquery-hammerjs/jquery.hammer';
 
 // conflicts with _components/_ui.hover.js (shows dropdown on hover)
 //import 'bootstrap/js/dist/dropdown';
+
+import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.shrink';
 import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.hover';
 
 import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.carousel';
@@ -32,10 +34,14 @@ import 'bootstrap/js/dist/tab';
 //
 
 import Spinner from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.spinner';
+
+// Sticky sidebar
+import SidebarUI from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.sidebar';
+
 //import Multislider from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.multislider';
 
 // Flyout UI
-import Flyout from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.flyout';
+//import Flyout from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.flyout';
 
 // Offcanvas menu
 //import 'offcanvas-bootstrap/dist/js/bootstrap.offcanvas';
@@ -53,16 +59,16 @@ import Flyout from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components
 //import FormStepped from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.stepped';
 
 // Forms validation functionality
-//import FormValidate from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.validate';
+import FormValidate from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.validate';
 
 // Store forms data into localStorage
-//import FormStorage from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.storage';
+import FormStorage from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.storage';
+
+// Google NoCaptcha fields
+import NoCaptcha from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.nocaptcha';
 
 // client-side images cropping
 //import FormCroppie from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.form.croppie';
-
-// Google NoCaptcha fields
-//import NoCaptcha from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.nocaptcha';
 
 // youtube video preview image
 import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.video.preview';
@@ -76,11 +82,25 @@ import '@a2nt/meta-lightbox/src/js/app';
 // AJAX UI
 //import AjaxUI from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.ajax';
 
-// Map UI
-import MapApi from '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/_ui.map.api';
-
 import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_main';
 import './_layout';
+
+// Google Analytics
+import '@a2nt/ss-bootstrap-ui-webpack-boilerplate/src/js/_components/drivers/_google.track.external.links';
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  const baseHref = (document.getElementsByTagName('base')[0] || {}).href;
+  const version = (document.querySelector('meta[name="swversion"]') || {})
+    .content;
+  if (baseHref) {
+    navigator.serviceWorker
+      .register(`${baseHref}sw.js?v=${version}`)
+      .then(() => {
+        console.log('Service Worker Registered');
+      });
+  }
+}
 
 function importAll(r) {
   return r.keys().map(r);
@@ -92,3 +112,4 @@ const images = importAll(
 const fontAwesome = importAll(
   require.context('font-awesome', false, /\.(otf|eot|svg|ttf|woff|woff2)$/),
 );
+//import MarkerClusterer from '@google/markerclusterer/src/markerclusterer.js';
